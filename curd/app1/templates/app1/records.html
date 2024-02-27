@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Records Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .navbar-nav {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-item {
+            margin-left: 15px;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        td button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        td button:hover {
+            background-color: #010204;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" class="navbar-brand">Diary</a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'records' %}" class="nav-link">Records</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 20px;">All Records</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Contact</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ record.name }}</td>
+                    <td>{{ record.email }}</td>
+                    <td>{{ record.city }}</td>
+                    <td>{{ record.contact }}</td>
+                    <td><a href="{% url 'edit' record.id %}"><button>Edit</button></a></td>
+                    <td>
+                        <form action="{% url 'delete' record.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

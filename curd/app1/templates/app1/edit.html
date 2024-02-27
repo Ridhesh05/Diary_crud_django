@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Navbar and Form</title>
+    <link rel="stylesheet" href="{% static 'app1/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .navbar-nav {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-item {
+            margin-left: 15px;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+            margin: 20px auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group .btn:hover {
+            background-color: #0056b3;
+        }
+        .heading {
+            background-color: #686761;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 10px;
+            width: fit-content;
+        }
+        .heading h1 {
+            text-align: center;
+            font-weight: 800;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="#" class="navbar-brand">APP</a>
+    <ul class="navbar-nav" style="margin-left: 5px;gap:26px">
+        <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+        <!-- by default create we going to create form -->
+        <li class="nav-item"><a href="{% url 'records' %}" class="nav-link">Update</a></li>
+    </ul>
+</div>
+<div class ="heading" style="height:5rem;background-color: #92918a;border-radius: 5px;">
+    <h1 style="text-align: center;font-weight: 800;">Create</h1>
+</div>
+<div class="form-container">
+    <h2> Form </h2>
+    <form action="{% url 'update' data.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value =" {{data.name}}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value =" {{data.email}}" required>
+        </div>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input id="city" name="city" value =" {{data.city}}" required>
+                
+            </input>
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact:</label>
+            <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" value =" {{data.contact}}" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn">Update</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
